@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Invoice Test Suite - All Modules" parallel="false" thread-count="1">
+    
+    <!-- ============================================ -->
+    <!-- MODULE 1: SỬA HÓA ĐƠN (18 TEST CASES)       -->
+    <!-- ============================================ -->
+    
+    <!-- BƯỚC 1: Test click table row trước (QUAN TRỌNG) -->
+    <test name="Debug - Table Row Click Test" enabled="false">
+        <classes>
+            <class name="org.example.DebugTest">
+                <methods>
+                    <include name="testClickTableRow"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- BƯỚC 2: Chạy 1 test đầu tiên để kiểm tra -->
+    <test name="Edit Module - First Test Only" enabled="false">
+        <classes>
+            <class name="org.example.InvoiceEditTest">
+                <methods>
+                    <include name="testEditValidQuantity"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- BƯỚC 3: Chạy tất cả 18 tests Sửa hóa đơn -->
+    <test name="Edit Module - All 18 Tests" enabled="false">
+        <classes>
+            <class name="org.example.InvoiceEditTest">
+                <methods>
+                    <include name="testEditValidQuantity"/>
+                    <include name="testEditQuantityExceedsInventory"/>
+                    <include name="testEditQuantityZero"/>
+                    <include name="testEditNegativeQuantity"/>
+                    <include name="testCancelEdit"/>
+                    <include name="testEditMultipleFields"/>
+                    <include name="testAutoCalculation"/>
+                    <include name="testInventoryUpdateAfterEdit"/>
+                    <include name="testUnitPriceReadOnly"/>
+                    <include name="testSaleDateReadOnly"/>
+                    <include name="testEditPaymentMethodSuccess"/>
+                    <include name="testInvoiceCodeReadOnly"/>
+                    <include name="testEditDiscountSuccess"/>
+                    <include name="testEditNegativeDiscount"/>
+                    <include name="testEditDiscountEqualsTotalAmount"/>
+                    <include name="testSaveWithoutChanges"/>
+                    <include name="testCustomerInfoReadOnly"/>
+                    <include name="testEnterTextInDiscount"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- ============================================ -->
+    <!-- MODULE 2: XÓA HÓA ĐƠN (2 TEST CASES)        -->
+    <!-- ============================================ -->
+    
+    <!-- BƯỚC 4: Chạy test Hủy xóa trước (an toàn) -->
+    <test name="Delete Module - Cancel Delete Test" enabled="false">
+        <classes>
+            <class name="org.example.InvoiceDeleteTest">
+                <methods>
+                    <include name="testCancelDeleteInvoice"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- BƯỚC 5: Chạy test Xóa thành công (sẽ xóa thật hóa đơn) -->
+    <test name="Delete Module - Delete Success Test" enabled="false">
+        <classes>
+            <class name="org.example.InvoiceDeleteTest">
+                <methods>
+                    <include name="testDeleteInvoiceSuccess"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- BƯỚC 6: Chạy tất cả 2 tests Xóa hóa đơn -->
+    <test name="Delete Module - All 2 Tests" enabled="false">
+        <classes>
+            <class name="org.example.InvoiceDeleteTest">
+                <methods>
+                    <include name="testCancelDeleteInvoice"/>
+                    <include name="testDeleteInvoiceSuccess"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- ============================================ -->
+    <!-- CHẠY TẤT CẢ 20 TESTS (18 + 2)               -->
+    <!-- ============================================ -->
+    
+    <!-- BƯỚC 7: Chạy tất cả tests của cả 2 modules -->
+    <test name="All Modules - 20 Tests Total" enabled="false">
+        <classes>
+            <!-- Module Sửa hóa đơn: 18 tests -->
+            <class name="org.example.InvoiceEditTest"/>
+            
+            <!-- Module Xóa hóa đơn: 2 tests -->
+            <class name="org.example.InvoiceDeleteTest"/>
+        </classes>
+    </test>
+</suite>
