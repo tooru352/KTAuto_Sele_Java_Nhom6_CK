@@ -36,7 +36,19 @@ public class Constant {
     public static final String DELETE_SUCCESS = "Xóa thành công";
     public static final String SAVE_SUCCESS = "Lưu thành công";
     public static final String CONFIRM_DELETE = "Xác Nhận Xoá";
-    
+
+    // Test data cho hóa đơn
+    public static final String VALID_INVOICE_CODE = "HD001";
+    public static final String INVALID_INVOICE_CODE = "HD999";
+
+    // Test data cho tạo hóa đơn
+    public static final String CUSTOMER_PHONE = "0348230373";
+    public static final String INVALID_CUSTOMER_PHONE = "123456";
+    public static final String PRODUCT_NAME = "Toán 12";
+    public static final String PAYMENT_METHOD_CASH = "tien_mat";
+    public static final String PAYMENT_METHOD_TRANSFER = "chuyen_khoan";
+    public static final String DISCOUNT_PERCENT = "10";
+
     // Invoice codes
     public static final String DEFAULT_INVOICE_CODE = "HD015";
 }

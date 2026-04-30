@@ -20,13 +20,18 @@ public class LoginPage {
     private By userDisplayName = By.xpath("//*[contains(text(),'ADMIN')]");
     private By validationMessage = By.xpath("//*[contains(text(),'Please fill out this field')]");
 
+    // XPath để kiểm tra đăng nhập thành công
+    private final By homePageHeader = By.xpath("//header[@class='top-header']//h1[text()='Trang chủ']");
+    private final By userInfo = By.xpath("//a[@class='user-info']//span[@class='user-name'][text()='admin']");
+    private final By homePageTitle = By.xpath("//h1[text()='Trang chủ ']");
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(Constant.EXPLICIT_WAIT));
     }
 
     public void open() {
-        driver.get(Constant.BASE_URL);
+        driver.get(Constant.LOGIN_URL);
     }
 
     public void enterUsername(String username) {
