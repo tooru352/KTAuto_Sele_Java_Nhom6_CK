@@ -6,24 +6,20 @@ import org.testng.annotations.Test;
 import pageobjects.InvoiceDetailPage;
 import pageobjects.SalesPage;
 
-/**
- * Test Cases cho module Tìm kiếm hóa đơn
- * Tổng cộng: 7 test cases
- */
 public class InvoiceSearchTest extends BaseTest {
     private SalesPage salesPage;
-    private InvoiceDetailPage detailPage;
-
+    private InvoiceDetailPage invoiceDetailPage;
+    
     @BeforeMethod
     @Override
     public void setUp() {
         super.setUp();
         salesPage = new SalesPage(driver, wait);
-        detailPage = new InvoiceDetailPage(driver, wait);
+        invoiceDetailPage = new InvoiceDetailPage(driver, wait);
         login();
         navigateToSalesPage();
     }
-
+    
     @Test(description = "TC-01: Tìm kiếm hóa đơn theo mã hợp lệ")
     public void TC01() {
         System.out.println("TC-01 - Tìm kiếm hóa đơn theo mã hợp lệ");
@@ -42,7 +38,7 @@ public class InvoiceSearchTest extends BaseTest {
         
         System.out.println("✓ TC-01 PASS: Hệ thống hiển thị đúng hóa đơn HD001");
     }
-
+    
     @Test(description = "TC-02: Tìm kiếm mã hóa đơn không tồn tại")
     public void TC02() {
         System.out.println("TC-02 - Tìm kiếm mã hóa đơn không tồn tại");
@@ -64,7 +60,7 @@ public class InvoiceSearchTest extends BaseTest {
         
         System.out.println("✓ TC-02 PASS: Hệ thống hiển thị thông báo 'Không tìm thấy hóa đơn khớp với HD999', danh sách trống");
     }
-
+    
     @Test(description = "TC-03: Tìm kiếm với mã hóa đơn viết thường")
     public void TC03() {
         System.out.println("TC-03 - Tìm kiếm với mã hóa đơn viết thường");
@@ -83,7 +79,7 @@ public class InvoiceSearchTest extends BaseTest {
         
         System.out.println("✓ TC-03 PASS: Hệ thống tìm thấy HD001");
     }
-
+    
     @Test(description = "TC-04: Tìm kiếm với mã hóa đơn có khoảng trắng")
     public void TC04() {
         System.out.println("TC-04 - Tìm kiếm với mã hóa đơn có khoảng trắng");
@@ -105,7 +101,7 @@ public class InvoiceSearchTest extends BaseTest {
         
         System.out.println("✓ TC-04 PASS: Hệ thống hiển thị thông báo 'Không tìm thấy hóa đơn khớp với  HD001 ', danh sách trống");
     }
-
+    
     @Test(description = "TC-05: Tìm kiếm với mã hóa đơn một phần")
     public void TC05() {
         System.out.println("TC-05 - Tìm kiếm với mã hóa đơn một phần");
@@ -127,7 +123,7 @@ public class InvoiceSearchTest extends BaseTest {
         
         System.out.println("✓ TC-05 PASS: Hệ thống hiển thị tất cả hóa đơn có mã chứa '15'");
     }
-
+    
     @Test(description = "TC-06: Click vào dòng hóa đơn để xem chi tiết")
     public void TC06() {
         System.out.println("TC-06 - Click vào dòng hóa đơn để xem chi tiết");
@@ -140,18 +136,18 @@ public class InvoiceSearchTest extends BaseTest {
             e.printStackTrace();
         }
         
-        Assert.assertTrue(detailPage.isModalDisplayed(), 
+        Assert.assertTrue(invoiceDetailPage.isModalDisplayed(), 
             "Modal chi tiết hóa đơn không hiển thị");
         
-        String invoiceCode = detailPage.getInvoiceCode();
+        String invoiceCode = invoiceDetailPage.getInvoiceCode();
         Assert.assertTrue(invoiceCode.contains("HD001"), 
             "Chi tiết không phải của hóa đơn HD001");
         
         System.out.println("✓ TC-06 PASS: Hiển thị chi tiết hóa đơn HD001");
         
-        detailPage.closeModal();
+        invoiceDetailPage.closeModal();
     }
-
+    
     @Test(description = "TC-07: Kiểm tra cột hiển thị trong bảng sản phẩm")
     public void TC07() {
         System.out.println("TC-07 - Kiểm tra cột hiển thị trong bảng sản phẩm");
@@ -164,13 +160,13 @@ public class InvoiceSearchTest extends BaseTest {
             e.printStackTrace();
         }
         
-        boolean hasCorrectColumns = detailPage.hasCorrectColumnStructure();
+        boolean hasCorrectColumns = invoiceDetailPage.hasCorrectColumnStructure();
         
         Assert.assertTrue(hasCorrectColumns, 
             "Bảng sản phẩm không có đủ các cột yêu cầu");
         
         System.out.println("✓ TC-07 PASS: Bảng có các cột: Mã hàng hóa, Tên hàng hóa, Số lượng, Đơn giá, Thành tiền");
         
-        detailPage.closeModal();
+        invoiceDetailPage.closeModal();
     }
 }

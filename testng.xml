@@ -29,4 +29,18 @@
         </classes>
     </test>
     
+    <!-- Invoice Create Tests -->
+    <test name="Invoice Create Tests">
+        <classes>
+            <class name="testcases.InvoiceCreateTest"/>
+        </classes>
+    </test>
+    
+    <!-- Invoice Search Tests -->
+    <test name="Invoice Search Tests">
+        <classes>
+            <class name="testcases.InvoiceSearchTest"/>
+        </classes>
+    </test>
+    
 </suite>

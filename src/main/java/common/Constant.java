@@ -15,6 +15,7 @@ public class Constant {
     public static final String NHAP_HANG_URL = BASE_URL + "/nhap-hang/";
     public static final String HANG_HOA_URL = BASE_URL + "/hang-hoa/";
     public static final String SALES_URL = BASE_URL + "/ban-hang/";
+    public static final String CREATE_INVOICE_URL = BASE_URL + "/ban-hang/them/";
     
     // Login credentials
     public static final String VALID_USERNAME = "admin";
