@@ -61,7 +61,7 @@ public class SalesPage extends GeneralPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new SalesPage();
+        return new SalesPage(driver, wait);
     }
     
     public InvoiceCreatePage gotoCreateInvoice() {
@@ -71,7 +71,7 @@ public class SalesPage extends GeneralPage {
             e.printStackTrace();
         }
         clickElement(addInvoiceButton);
-        return new InvoiceCreatePage();
+        return new InvoiceCreatePage(driver, wait);
     }
     
     public void navigateToImport() {
@@ -228,7 +228,7 @@ public class SalesPage extends GeneralPage {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new InvoiceDetailPage();
+        return new InvoiceDetailPage(driver, wait);
     }
     
     public int getInvoiceCount() {

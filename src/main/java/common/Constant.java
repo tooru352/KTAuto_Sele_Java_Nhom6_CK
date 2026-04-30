@@ -21,7 +21,7 @@ public class Constant {
     public static final String VALID_USERNAME = "admin";
     public static final String VALID_PASSWORD = "admin";
     public static final String ADMIN_USERNAME = "admin";
-    public static final String ADMIN_PASSWORD = "admin123";
+    public static final String ADMIN_PASSWORD = "admin";
     
     // Timeouts
     public static final int IMPLICIT_WAIT = 10;

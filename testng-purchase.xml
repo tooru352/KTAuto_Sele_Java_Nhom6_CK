@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Purchase Create Test Suite" parallel="false">
+
+    <test name="Purchase Create Tests - Tạo hóa đơn nhập">
+        <classes>
+            <class name="testcases.PurchaseCreateTest"/>
+        </classes>
+    </test>
+
+</suite>
