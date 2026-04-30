@@ -3,19 +3,19 @@ package testcases;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.InvoiceDetailPage;
+import pageobjects.SaleInvoiceDetailPage;
 import pageobjects.SalesPage;
 
-public class InvoiceSearchTest extends BaseTest {
+public class SaleInvoiceSearchTest extends BaseTest {
     private SalesPage salesPage;
-    private InvoiceDetailPage invoiceDetailPage;
+    private SaleInvoiceDetailPage saleInvoiceDetailPage;
     
     @BeforeMethod
     @Override
     public void setUp() {
         super.setUp();
         salesPage = new SalesPage(driver, wait);
-        invoiceDetailPage = new InvoiceDetailPage(driver, wait);
+        saleInvoiceDetailPage = new SaleInvoiceDetailPage(driver, wait);
         login();
         navigateToSalesPage();
     }
@@ -136,16 +136,16 @@ public class InvoiceSearchTest extends BaseTest {
             e.printStackTrace();
         }
         
-        Assert.assertTrue(invoiceDetailPage.isModalDisplayed(), 
+        Assert.assertTrue(SaleInvoiceDetailPage.isModalDisplayed(), 
             "Modal chi tiết hóa đơn không hiển thị");
         
-        String invoiceCode = invoiceDetailPage.getInvoiceCode();
+        String invoiceCode = SaleInvoiceDetailPage.getInvoiceCode();
         Assert.assertTrue(invoiceCode.contains("HD001"), 
             "Chi tiết không phải của hóa đơn HD001");
         
         System.out.println("✓ TC-06 PASS: Hiển thị chi tiết hóa đơn HD001");
         
-        invoiceDetailPage.closeModal();
+        SaleInvoiceDetailPage.closeModal();
     }
     
     @Test(description = "TC-07: Kiểm tra cột hiển thị trong bảng sản phẩm")
@@ -160,13 +160,13 @@ public class InvoiceSearchTest extends BaseTest {
             e.printStackTrace();
         }
         
-        boolean hasCorrectColumns = invoiceDetailPage.hasCorrectColumnStructure();
+        boolean hasCorrectColumns = SaleInvoiceDetailPage.hasCorrectColumnStructure();
         
         Assert.assertTrue(hasCorrectColumns, 
             "Bảng sản phẩm không có đủ các cột yêu cầu");
         
         System.out.println("✓ TC-07 PASS: Bảng có các cột: Mã hàng hóa, Tên hàng hóa, Số lượng, Đơn giá, Thành tiền");
         
-        invoiceDetailPage.closeModal();
+        SaleInvoiceDetailPage.closeModal();
     }
 }

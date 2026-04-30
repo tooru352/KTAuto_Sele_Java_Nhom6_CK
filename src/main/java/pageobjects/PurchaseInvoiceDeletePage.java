@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * URL: /nhap-hang/
  * HTML: nhap_hang.html + nhap-hang.js
  */
-public class PurchaseDeletePage extends GeneralPage {
+public class PurchaseInvoiceDeletePage extends GeneralPage {
 
     // ===================== LOCATORS =====================
 

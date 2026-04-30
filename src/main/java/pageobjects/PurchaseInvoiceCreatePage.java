@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * URL  : /nhap-hang/them/
  * HTML : them_hoa_don_nhap.html
  */
-public class PurchaseCreatePage extends GeneralPage {
+public class PurchaseInvoiceCreatePage extends GeneralPage {
 
     // ===================== LOCATORS (khớp HTML thực tế) =====================
 

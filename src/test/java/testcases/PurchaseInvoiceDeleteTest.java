@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.PurchaseDeletePage;
+import pageobjects.PurchaseInvoiceDeletePage;
 
 /**
  * Test Suite: Xóa hóa đơn nhập hàng
@@ -15,11 +15,11 @@ import pageobjects.PurchaseDeletePage;
  * TC_01 – Xóa hóa đơn (nhấn Đồng ý)
  * TC_02 – Xóa hóa đơn – chọn Hủy
  */
-public class PurchaseDeleteTest extends BaseTest {
+public class PurchaseInvoiceDeleteTest extends BaseTest {
 
     private static final String NHAP_HANG_URL = Constant.BASE_URL + "/nhap-hang/";
 
-    private PurchaseDeletePage page;
+    private PurchaseInvoiceDeletePage page;
 
     // ===================== SETUP =====================
 
@@ -27,7 +27,7 @@ public class PurchaseDeleteTest extends BaseTest {
     @Override
     public void setUp() {
         super.setUp();
-        page = new PurchaseDeletePage(driver, wait);
+        page = new PurchaseInvoiceDeletePage(driver, wait);
 
         // Bước 1: Đăng nhập
         login();

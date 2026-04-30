@@ -3,13 +3,13 @@ package testcases;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.SearchPage;
+import pageobjects.PurchaseInvoiceSearchPage;
 import pageobjects.LoginPage;
 import dataobjects.SearchData;
 import dataobjects.LoginData;
 
-public class SearchTest extends BaseTest {
-    private SearchPage searchPage;
+public class PurchaseInvoiceSearchTest extends BaseTest {
+    private PurchaseInvoiceSearchPage purchaseInvoiceSearchPage;
     private LoginPage loginPage;
 
     @BeforeMethod
@@ -20,8 +20,8 @@ public class SearchTest extends BaseTest {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         
         // Sau đó vào trang "Nhập hàng"
-        searchPage = new SearchPage(driver);
-        searchPage.openImportPage();
+        purchaseInvoiceSearchPage = new PurchaseInvoiceSearchPage(driver);
+        purchaseInvoiceSearchPage.openImportPage();
     }
 
     @Test(description = "TC_01: Kiểm tra tìm kiếm theo tên NCC")
@@ -34,15 +34,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_01: Kiem tra tim kiem theo ten NCC ===");
         
-        searchPage.enterSearchKeyword(SearchData.SUPPLIER_NAME_KIM_DONG);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.SUPPLIER_NAME_KIM_DONG);
         System.out.println("Da nhap tu khoa: " + SearchData.SUPPLIER_NAME_KIM_DONG);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isResultsDisplayed = searchPage.isResultsDisplayed();
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isResultsDisplayed = purchaseInvoiceSearchPage.isResultsDisplayed();
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Kết quả được hiển thị: " + isResultsDisplayed);
@@ -64,15 +64,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_02: Kiem tra tim kiem theo ma hoa don ===");
         
-        searchPage.enterSearchKeyword(SearchData.INVOICE_CODE_HDN01);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.INVOICE_CODE_HDN01);
         System.out.println("Da nhap tu khoa: " + SearchData.INVOICE_CODE_HDN01);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isResultsDisplayed = searchPage.isResultsDisplayedForInvoiceCode(SearchData.INVOICE_CODE_HDN01);
-        boolean isOtherInvoicesHidden = searchPage.isOtherInvoicesHidden();
+        boolean isResultsDisplayed = purchaseInvoiceSearchPage.isResultsDisplayedForInvoiceCode(SearchData.INVOICE_CODE_HDN01);
+        boolean isOtherInvoicesHidden = purchaseInvoiceSearchPage.isOtherInvoicesHidden();
         
         System.out.println("Kết quả được hiển thị: " + isResultsDisplayed);
         System.out.println("Các hóa đơn khác bị ẩn: " + isOtherInvoicesHidden);
@@ -95,15 +95,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_03: Tim kiem tu khoa mot phan ===");
         
-        searchPage.enterSearchKeyword(SearchData.PARTIAL_KEYWORD_KIM);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.PARTIAL_KEYWORD_KIM);
         System.out.println("Da nhap tu khoa: " + SearchData.PARTIAL_KEYWORD_KIM);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isResultsDisplayed = searchPage.isResultsDisplayed();
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isResultsDisplayed = purchaseInvoiceSearchPage.isResultsDisplayed();
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Kết quả được hiển thị: " + isResultsDisplayed);
@@ -125,20 +125,20 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_04: Tim kiem tu khoa khong ton tai ===");
         
-        searchPage.enterSearchKeyword(SearchData.NON_EXISTENT_KEYWORD);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.NON_EXISTENT_KEYWORD);
         System.out.println("Da nhap tu khoa: " + SearchData.NON_EXISTENT_KEYWORD);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isNoResultsMessageDisplayed = searchPage.isNoResultsMessageDisplayed(SearchData.NON_EXISTENT_KEYWORD);
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isNoResultsMessageDisplayed = purchaseInvoiceSearchPage.isNoResultsMessageDisplayed(SearchData.NON_EXISTENT_KEYWORD);
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Thông báo không tìm thấy: " + isNoResultsMessageDisplayed);
         
-        Assert.assertFalse(searchPage.isResultsDisplayed(),
+        Assert.assertFalse(purchaseInvoiceSearchPage.isResultsDisplayed(),
             "Không có kết quả");
         Assert.assertTrue(isTableEmpty,
             "Bảng không có dòng dữ liệu");
@@ -157,15 +157,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_05: Tim kiem voi tu khoa rong ===");
         
-        searchPage.enterSearchKeyword("");
+        purchaseInvoiceSearchPage.enterSearchKeyword("");
         System.out.println("Da nhap tu khoa rong");
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isAllInvoicesDisplayed = searchPage.isAllInvoicesDisplayed();
-        boolean isFilterApplied = searchPage.isFilterApplied();
+        boolean isAllInvoicesDisplayed = purchaseInvoiceSearchPage.isAllInvoicesDisplayed();
+        boolean isFilterApplied = purchaseInvoiceSearchPage.isFilterApplied();
         
         System.out.println("Tất cả hóa đơn được hiển thị: " + isAllInvoicesDisplayed);
         System.out.println("Filter được áp dụng: " + isFilterApplied);
@@ -188,15 +188,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_07: Tim kiem theo ngay tao ===");
         
-        searchPage.enterSearchKeyword(SearchData.CREATION_DATE_04_04_2026);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.CREATION_DATE_04_04_2026);
         System.out.println("Da nhap tu khoa: " + SearchData.CREATION_DATE_04_04_2026);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isResultsDisplayedForDate = searchPage.isResultsDisplayedForDate(SearchData.CREATION_DATE_04_04_2026);
-        boolean isOtherDatesHidden = searchPage.isOtherDatesHidden();
+        boolean isResultsDisplayedForDate = purchaseInvoiceSearchPage.isResultsDisplayedForDate(SearchData.CREATION_DATE_04_04_2026);
+        boolean isOtherDatesHidden = purchaseInvoiceSearchPage.isOtherDatesHidden();
         
         System.out.println("Kết quả được hiển thị: " + isResultsDisplayedForDate);
         System.out.println("Các ngày khác bị ẩn: " + isOtherDatesHidden);
@@ -219,15 +219,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_08: Tim kiem theo trang thai ===");
         
-        searchPage.enterSearchKeyword(SearchData.STATUS_COMPLETED);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.STATUS_COMPLETED);
         System.out.println("Da nhap tu khoa: " + SearchData.STATUS_COMPLETED);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isNoResultsMessageDisplayed = searchPage.isNoResultsMessageDisplayed(SearchData.STATUS_COMPLETED);
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isNoResultsMessageDisplayed = purchaseInvoiceSearchPage.isNoResultsMessageDisplayed(SearchData.STATUS_COMPLETED);
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Thông báo không tìm thấy: " + isNoResultsMessageDisplayed);
@@ -250,20 +250,20 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_09: Tim kiem tu khoa in hoa ===");
         
-        searchPage.enterSearchKeyword(SearchData.UPPERCASE_KEYWORD);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.UPPERCASE_KEYWORD);
         System.out.println("Da nhap tu khoa: " + SearchData.UPPERCASE_KEYWORD);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isNoResultsMessageDisplayed = searchPage.isNoResultsMessageDisplayed(SearchData.UPPERCASE_KEYWORD);
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isNoResultsMessageDisplayed = purchaseInvoiceSearchPage.isNoResultsMessageDisplayed(SearchData.UPPERCASE_KEYWORD);
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Thông báo không tìm thấy: " + isNoResultsMessageDisplayed);
         
-        Assert.assertFalse(searchPage.isResultsDisplayed(),
+        Assert.assertFalse(purchaseInvoiceSearchPage.isResultsDisplayed(),
             "Không có kết quả");
         Assert.assertTrue(isTableEmpty,
             "Bảng không có dòng dữ liệu");
@@ -283,21 +283,21 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_10: Tim kiem theo so luong nhap ===");
         
-        searchPage.enterSearchKeyword(SearchData.QUANTITY_163);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.QUANTITY_163);
         System.out.println("Da nhap tu khoa: " + SearchData.QUANTITY_163);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isNoResultsMessageDisplayed = searchPage.isNoResultsMessageDisplayed(SearchData.QUANTITY_163);
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isNoResultsMessageDisplayed = purchaseInvoiceSearchPage.isNoResultsMessageDisplayed(SearchData.QUANTITY_163);
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Thông báo không tìm thấy: " + isNoResultsMessageDisplayed);
         
         // Expected: Không có kết quả
-        Assert.assertFalse(searchPage.isResultsDisplayed(),
+        Assert.assertFalse(purchaseInvoiceSearchPage.isResultsDisplayed(),
             "Không có kết quả");
         Assert.assertTrue(isTableEmpty,
             "Bảng không có dòng dữ liệu");
@@ -317,15 +317,15 @@ public class SearchTest extends BaseTest {
         
         System.out.println("=== TC_11: Tim kiem theo gia tri don hang ===");
         
-        searchPage.enterSearchKeyword(SearchData.ORDER_VALUE_2416000);
+        purchaseInvoiceSearchPage.enterSearchKeyword(SearchData.ORDER_VALUE_2416000);
         System.out.println("Da nhap tu khoa: " + SearchData.ORDER_VALUE_2416000);
         
-        searchPage.clickSearchButton();
+        purchaseInvoiceSearchPage.clickSearchButton();
         System.out.println("Da click nut Tim kiem");
         
         // Kiểm tra kết quả
-        boolean isTableEmpty = searchPage.isTableEmpty();
-        boolean isResultsDisplayed = searchPage.isResultsDisplayed();
+        boolean isTableEmpty = purchaseInvoiceSearchPage.isTableEmpty();
+        boolean isResultsDisplayed = purchaseInvoiceSearchPage.isResultsDisplayed();
         
         System.out.println("Bảng rỗng: " + isTableEmpty);
         System.out.println("Kết quả được hiển thị: " + isResultsDisplayed);

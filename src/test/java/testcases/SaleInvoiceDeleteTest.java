@@ -6,20 +6,20 @@ import dataobjects.InvoiceDeleteData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.InvoiceDeletePage;
+import pageobjects.SaleInvoiceDeletePage;
 
 /**
  * Test Cases cho module Xóa hóa đơn
  * Tổng cộng: 2 test cases
  */
-public class InvoiceDeleteTest extends BaseTest {
-    private InvoiceDeletePage invoiceDeletePage;
+public class SaleInvoiceDeleteTest extends BaseTest {
+    private SaleInvoiceDeletePage saleInvoiceDeletePage;
 
     @BeforeMethod
     @Override
     public void setUp() {
         super.setUp();
-        invoiceDeletePage = new InvoiceDeletePage(driver, wait);
+        saleInvoiceDeletePage = new SaleInvoiceDeletePage(driver, wait);
         login();
         navigateToSalesPage();
     }
@@ -31,7 +31,7 @@ public class InvoiceDeleteTest extends BaseTest {
         Utilities.log("⚠️ Không xóa hóa đơn đầu tiên để bảo vệ dữ liệu test");
         
         // Kiểm tra số lượng hóa đơn
-        int totalInvoices = invoiceDeletePage.getTotalInvoices();
+        int totalInvoices = SaleInvoiceDeletePage.getTotalInvoices();
         Utilities.log("Tổng số hóa đơn: " + totalInvoices);
         
         if (totalInvoices < 2) {
@@ -51,20 +51,20 @@ public class InvoiceDeleteTest extends BaseTest {
         
         // Steps
         // Bước 1: Xem chi tiết hóa đơn cuối cùng
-        invoiceDeletePage.clickInvoiceRow(data.getInvoiceIndex());
+        SaleInvoiceDeletePage.clickInvoiceRow(data.getInvoiceIndex());
         
         // Lưu mã hóa đơn
-        String invoiceCode = invoiceDeletePage.getInvoiceCode();
+        String invoiceCode = SaleInvoiceDeletePage.getInvoiceCode();
         Utilities.log("Mã hóa đơn cần xóa: " + invoiceCode);
         
         // Bước 2: Click nút Xóa
-        invoiceDeletePage.clickDeleteButton();
+        SaleInvoiceDeletePage.clickDeleteButton();
         
         // Bước 3: Kiểm tra popup xác nhận
-        boolean isPopupDisplayed = invoiceDeletePage.isConfirmPopupDisplayed();
+        boolean isPopupDisplayed = SaleInvoiceDeletePage.isConfirmPopupDisplayed();
         Assert.assertTrue(isPopupDisplayed, "Popup xác nhận phải hiển thị");
         
-        String confirmMessage = invoiceDeletePage.getConfirmMessage();
+        String confirmMessage = SaleInvoiceDeletePage.getConfirmMessage();
         Utilities.log("Nội dung popup: " + confirmMessage);
         Assert.assertTrue(
             confirmMessage.toLowerCase().contains("xóa") || 
@@ -73,10 +73,10 @@ public class InvoiceDeleteTest extends BaseTest {
             "Popup phải chứa nội dung xác nhận xóa");
         
         // Bước 4: Click Đồng ý
-        invoiceDeletePage.clickConfirmButton();
+        SaleInvoiceDeletePage.clickConfirmButton();
         
         // Bước 5: Kiểm tra thông báo thành công (nếu có)
-        String successMessage = invoiceDeletePage.getSuccessMessage();
+        String successMessage = SaleInvoiceDeletePage.getSuccessMessage();
         Utilities.log("Thông báo: " + successMessage);
         
         // Hệ thống có thể hiển thị message hoặc redirect trực tiếp
@@ -96,7 +96,7 @@ public class InvoiceDeleteTest extends BaseTest {
         navigateToSalesPage();
         Utilities.sleep(2000);
         
-        boolean isDeleted = invoiceDeletePage.isInvoiceDeleted(invoiceCode);
+        boolean isDeleted = SaleInvoiceDeletePage.isInvoiceDeleted(invoiceCode);
         Assert.assertTrue(isDeleted, 
             "Hóa đơn " + invoiceCode + " phải không còn trong danh sách");
         
@@ -115,20 +115,20 @@ public class InvoiceDeleteTest extends BaseTest {
         
         // Steps
         // Bước 1: Xem chi tiết hóa đơn
-        invoiceDeletePage.clickInvoiceRow(data.getInvoiceIndex());
+        SaleInvoiceDeletePage.clickInvoiceRow(data.getInvoiceIndex());
         
         // Lưu mã hóa đơn
-        String invoiceCode = invoiceDeletePage.getInvoiceCode();
+        String invoiceCode = SaleInvoiceDeletePage.getInvoiceCode();
         Utilities.log("Mã hóa đơn: " + invoiceCode);
         
         // Bước 2: Click nút Xóa
-        invoiceDeletePage.clickDeleteButton();
+        SaleInvoiceDeletePage.clickDeleteButton();
         
         // Bước 3: Kiểm tra popup xác nhận
-        boolean isPopupDisplayed = invoiceDeletePage.isConfirmPopupDisplayed();
+        boolean isPopupDisplayed = SaleInvoiceDeletePage.isConfirmPopupDisplayed();
         Assert.assertTrue(isPopupDisplayed, "Popup xác nhận phải hiển thị");
         
-        String confirmMessage = invoiceDeletePage.getConfirmMessage();
+        String confirmMessage = SaleInvoiceDeletePage.getConfirmMessage();
         Utilities.log("Nội dung popup: " + confirmMessage);
         Assert.assertTrue(
             confirmMessage.toLowerCase().contains("xóa") || 
@@ -137,10 +137,10 @@ public class InvoiceDeleteTest extends BaseTest {
             "Popup phải chứa nội dung xác nhận xóa");
         
         // Bước 4: Click Hủy
-        invoiceDeletePage.clickCancelButton();
+        SaleInvoiceDeletePage.clickCancelButton();
         
         // Bước 5: Kiểm tra không có thông báo xóa thành công
-        String successMessage = invoiceDeletePage.getSuccessMessage();
+        String successMessage = SaleInvoiceDeletePage.getSuccessMessage();
         Utilities.log("Thông báo (nếu có): " + successMessage);
         
         if (!successMessage.isEmpty()) {
@@ -151,7 +151,7 @@ public class InvoiceDeleteTest extends BaseTest {
         }
         
         // Bước 6: Kiểm tra vẫn ở màn hình chi tiết
-        boolean isDetailsVisible = invoiceDeletePage.isInvoiceDetailsVisible();
+        boolean isDetailsVisible = SaleInvoiceDeletePage.isInvoiceDetailsVisible();
         Assert.assertTrue(isDetailsVisible, 
             "Phải vẫn hiển thị màn hình chi tiết hóa đơn");
         
@@ -159,7 +159,7 @@ public class InvoiceDeleteTest extends BaseTest {
         navigateToSalesPage();
         Utilities.sleep(2000);
         
-        boolean isExists = invoiceDeletePage.isInvoiceExists(invoiceCode);
+        boolean isExists = SaleInvoiceDeletePage.isInvoiceExists(invoiceCode);
         Assert.assertTrue(isExists, 
             "Hóa đơn " + invoiceCode + " phải vẫn tồn tại trong danh sách");
         

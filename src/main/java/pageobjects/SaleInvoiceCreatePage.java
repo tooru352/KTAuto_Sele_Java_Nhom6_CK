@@ -235,7 +235,7 @@ public class InvoiceCreatePage extends GeneralPage {
                 // Silent fail
             }
             
-            throw new RuntimeException(e);
+            throw e;
         }
     }
     

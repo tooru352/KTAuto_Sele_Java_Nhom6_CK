@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.PurchaseCreatePage;
+import pageobjects.PurchaseInvoiceCreatePage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,12 +24,12 @@ import java.time.format.DateTimeFormatter;
  * TC_04 – Tìm kiếm NCC theo SĐT – có kết quả
  * TC_05 – Tìm kiếm NCC – không có kết quả
  */
-public class PurchaseCreateTest extends BaseTest {
+public class PurchaseInvoiceCreateTest extends BaseTest {
 
     // Từ khóa chắc chắn không tồn tại trong bất kỳ DB nào
     private static final String NON_EXISTING_SUPPLIER = "XYZ_NCC_KHONG_TON_TAI_999";
 
-    private PurchaseCreatePage page;
+    private PurchaseInvoiceCreatePage page;
 
     // ===================== SETUP =====================
 
@@ -37,7 +37,7 @@ public class PurchaseCreateTest extends BaseTest {
     @Override
     public void setUp() {
         super.setUp();
-        page = new PurchaseCreatePage(driver, wait);
+        page = new PurchaseInvoiceCreatePage(driver, wait);
 
         // Bước 1: Đăng nhập
         login();

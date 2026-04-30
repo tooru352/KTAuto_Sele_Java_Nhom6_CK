@@ -5,20 +5,20 @@ import dataobjects.InvoiceEditData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.InvoiceEditPage;
+import pageobjects.SaleInvoiceEditPage;
 
 /**
  * Test Cases cho module Chỉnh sửa hóa đơn
  * Tổng cộng: 18 test cases
  */
-public class InvoiceEditTest extends BaseTest {
-    private InvoiceEditPage invoiceEditPage;
+public class SaleInvoiceEditTest extends BaseTest {
+    private SaleInvoiceEditPage saleInvoiceEditPage;
 
     @BeforeMethod
     @Override
     public void setUp() {
         super.setUp();
-        invoiceEditPage = new InvoiceEditPage(driver, wait);
+        saleInvoiceEditPage = new SaleInvoiceEditPage(driver, wait);
         login();
         navigateToSalesPage();
     }
@@ -33,13 +33,13 @@ public class InvoiceEditTest extends BaseTest {
                 .build();
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
-        invoiceEditPage.changeQuantity(data.getQuantity());
-        invoiceEditPage.clickSaveButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.changeQuantity(data.getQuantity());
+        SaleInvoiceEditPage.clickSaveButton();
         
         // Verify
-        String message = invoiceEditPage.getSuccessMessage();
+        String message = SaleInvoiceEditPage.getSuccessMessage();
         Assert.assertTrue(message.contains("thành công"), 
             "Phải hiển thị thông báo thành công");
         
@@ -56,16 +56,16 @@ public class InvoiceEditTest extends BaseTest {
                 .build();
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
-        invoiceEditPage.changeQuantity(data.getQuantity());
-        invoiceEditPage.clickSaveButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.changeQuantity(data.getQuantity());
+        SaleInvoiceEditPage.clickSaveButton();
         
         Utilities.sleep(3000);
         
         // Verify - Hệ thống có thể cho phép hoặc báo lỗi
-        String successMsg = invoiceEditPage.getSuccessMessage();
-        String errorMsg = invoiceEditPage.getErrorMessage();
+        String successMsg = SaleInvoiceEditPage.getSuccessMessage();
+        String errorMsg = SaleInvoiceEditPage.getErrorMessage();
         
         Utilities.log("Success message: " + successMsg);
         Utilities.log("Error message: " + errorMsg);
@@ -91,12 +91,12 @@ public class InvoiceEditTest extends BaseTest {
                 .build();
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
-        invoiceEditPage.changeQuantity(data.getQuantity());
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.changeQuantity(data.getQuantity());
         
         // Verify
-        String quantity = invoiceEditPage.getQuantityValue();
+        String quantity = SaleInvoiceEditPage.getQuantityValue();
         Utilities.log("Số lượng sau khi nhập: " + quantity);
         
         if (quantity.equals("0")) {
@@ -120,12 +120,12 @@ public class InvoiceEditTest extends BaseTest {
                 .build();
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
-        invoiceEditPage.changeQuantity(data.getQuantity());
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.changeQuantity(data.getQuantity());
         
         // Verify
-        String quantity = invoiceEditPage.getQuantityValue();
+        String quantity = SaleInvoiceEditPage.getQuantityValue();
         int quantityValue = Integer.parseInt(quantity);
         
         Utilities.log("Số lượng sau khi nhập: " + quantity);
@@ -145,12 +145,12 @@ public class InvoiceEditTest extends BaseTest {
                 .build();
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
-        invoiceEditPage.changeQuantity(data.getQuantity());
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.changeQuantity(data.getQuantity());
         
         // Verify
-        String totalAmount = invoiceEditPage.getTotalAmount();
+        String totalAmount = SaleInvoiceEditPage.getTotalAmount();
         Assert.assertNotNull(totalAmount, "Tổng tiền phải được tính tự động");
         Assert.assertFalse(totalAmount.isEmpty(), "Tổng tiền không được rỗng");
         
@@ -162,11 +162,11 @@ public class InvoiceEditTest extends BaseTest {
         Utilities.logStep("=== TC-09: KIỂM TRA ĐƠN GIÁ READ-ONLY ===");
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
         
         // Verify
-        boolean isReadOnly = invoiceEditPage.isUnitPriceReadOnly();
+        boolean isReadOnly = SaleInvoiceEditPage.isUnitPriceReadOnly();
         Utilities.log("Đơn giá read-only: " + isReadOnly);
         Assert.assertTrue(isReadOnly, "Đơn giá phải là read-only");
         
@@ -178,11 +178,11 @@ public class InvoiceEditTest extends BaseTest {
         Utilities.logStep("=== TC-10: KIỂM TRA NGÀY BÁN READ-ONLY ===");
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
         
         // Verify
-        boolean isReadOnly = invoiceEditPage.isSaleDateReadOnly();
+        boolean isReadOnly = SaleInvoiceEditPage.isSaleDateReadOnly();
         Utilities.log("Ngày bán read-only: " + isReadOnly);
         Assert.assertTrue(isReadOnly, "Ngày bán phải là read-only");
         
@@ -194,11 +194,11 @@ public class InvoiceEditTest extends BaseTest {
         Utilities.logStep("=== TC-12: KIỂM TRA MÃ HÓA ĐƠN READ-ONLY ===");
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
         
         // Verify
-        boolean isReadOnly = invoiceEditPage.isInvoiceCodeReadOnly();
+        boolean isReadOnly = SaleInvoiceEditPage.isInvoiceCodeReadOnly();
         Utilities.log("Mã hóa đơn read-only: " + isReadOnly);
         Assert.assertTrue(isReadOnly, "Mã hóa đơn phải là read-only");
         
@@ -215,13 +215,13 @@ public class InvoiceEditTest extends BaseTest {
                 .build();
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
-        invoiceEditPage.changeDiscount(data.getDiscount());
-        invoiceEditPage.clickSaveButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.changeDiscount(data.getDiscount());
+        SaleInvoiceEditPage.clickSaveButton();
         
         // Verify
-        String message = invoiceEditPage.getSuccessMessage();
+        String message = SaleInvoiceEditPage.getSuccessMessage();
         Assert.assertTrue(message.contains("thành công"), 
             "Phải hiển thị thông báo thành công");
         
@@ -233,11 +233,11 @@ public class InvoiceEditTest extends BaseTest {
         Utilities.logStep("=== TC-17: KIỂM TRA THÔNG TIN KHÁCH HÀNG ===");
         
         // Steps
-        invoiceEditPage.clickInvoiceRow(0);
-        invoiceEditPage.clickEditButton();
+        SaleInvoiceEditPage.clickInvoiceRow(0);
+        SaleInvoiceEditPage.clickEditButton();
         
         // Verify
-        boolean isReadOnly = invoiceEditPage.isCustomerInfoReadOnly();
+        boolean isReadOnly = SaleInvoiceEditPage.isCustomerInfoReadOnly();
         Utilities.log("Thông tin khách hàng read-only: " + isReadOnly);
         
         if (isReadOnly) {

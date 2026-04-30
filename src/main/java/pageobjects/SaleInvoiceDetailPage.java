@@ -177,7 +177,7 @@ public class InvoiceDetailPage extends GeneralPage {
     
     public SalesPage backToSalesPage() {
         closeModal();
-        return new SalesPage(driver, wait);
+        return new SalesPage();
     }
     
     // Verification methods

@@ -3,13 +3,13 @@ package testcases;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageobjects.EditInvoicePage;
+import pageobjects.PurchaseInvoiceEditPage;
 import pageobjects.LoginPage;
 import dataobjects.EditInvoiceData;
 import dataobjects.LoginData;
 
-public class EditInvoiceTest extends BaseTest {
-    private EditInvoicePage editInvoicePage;
+public class PurchaseInvoiceEditTest extends BaseTest {
+    private PurchaseInvoiceEditPage purchaseInvoiceEditPage;
     private LoginPage loginPage;
 
     @BeforeMethod
@@ -20,8 +20,8 @@ public class EditInvoiceTest extends BaseTest {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         
         // Sau do vao trang "Nhap hang"
-        editInvoicePage = new EditInvoicePage(driver);
-        editInvoicePage.openImportPage();
+        purchaseInvoiceEditPage = new PurchaseInvoiceEditPage(driver);
+        purchaseInvoiceEditPage.openImportPage();
         
         // Cho trang load
         try {
@@ -30,7 +30,7 @@ public class EditInvoiceTest extends BaseTest {
             Thread.currentThread().interrupt();
         }
         
-        editInvoicePage.selectInvoice(EditInvoiceData.INVOICE_CODE_HDN01);
+        purchaseInvoiceEditPage.selectInvoice(EditInvoiceData.INVOICE_CODE_HDN01);
         
         // Cho modal mo
         try {
@@ -52,28 +52,28 @@ public class EditInvoiceTest extends BaseTest {
         System.out.println("=== TC_01: Sua so luong hang hoa ===");
         
         // Step 4: Click nut "Sua"
-        editInvoicePage.clickEditButton();
+        purchaseInvoiceEditPage.clickEditButton();
         System.out.println("Da click nut Sua");
         
         // Step 4: Sua so luong tu 10 thanh 15
-        editInvoicePage.enterQuantity(EditInvoiceData.NEW_QUANTITY_15);
+        purchaseInvoiceEditPage.enterQuantity(EditInvoiceData.NEW_QUANTITY_15);
         System.out.println("Da sua so luong thanh 15");
         
         // Kiem tra gia tri da nhap
-        int currentQuantity = editInvoicePage.getQuantity();
+        int currentQuantity = purchaseInvoiceEditPage.getQuantity();
         System.out.println("So luong hien tai: " + currentQuantity);
         Assert.assertEquals(currentQuantity, EditInvoiceData.NEW_QUANTITY_15,
             "So luong da duoc nhap thanh 15");
         
         // Step 5: Bam "Luu"
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickSaveButton();
         System.out.println("Da click nut Luu");
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Expected Result: Hien thi thong bao "Đã Lưu Thông Tin Thay Đổi!"
-        boolean successDisplayed = editInvoicePage.isSuccessMessageDisplayed();
+        boolean successDisplayed = purchaseInvoiceEditPage.isSuccessMessageDisplayed();
         System.out.println("Success message displayed: " + successDisplayed);
         
         Assert.assertTrue(successDisplayed,
@@ -81,7 +81,7 @@ public class EditInvoiceTest extends BaseTest {
         
         // Click OK button de dong popup
         try {
-            org.openqa.selenium.WebElement okButton = editInvoicePage.driver.findElement(
+            org.openqa.selenium.WebElement okButton = purchaseInvoiceEditPage.driver.findElement(
                 org.openqa.selenium.By.xpath("//button[contains(text(),'OK')]"));
             if (okButton.isDisplayed()) {
                 okButton.click();
@@ -97,19 +97,19 @@ public class EditInvoiceTest extends BaseTest {
 
     @Test(description = "TC_02: Sua so luong hang hoa thanh 0")
     public void testEditQuantityToZero() throws InterruptedException {
-        editInvoicePage.clickEditButton();
-        editInvoicePage.enterQuantity(EditInvoiceData.ZERO_QUANTITY);
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.enterQuantity(EditInvoiceData.ZERO_QUANTITY);
+        purchaseInvoiceEditPage.clickSaveButton();
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Check xem co error message hay alert
-        boolean hasError = editInvoicePage.isErrorMessageDisplayed();
+        boolean hasError = purchaseInvoiceEditPage.isErrorMessageDisplayed();
         System.out.println("Has error message: " + hasError);
         
         if (hasError) {
-            String errorText = editInvoicePage.getErrorMessageText();
+            String errorText = purchaseInvoiceEditPage.getErrorMessageText();
             System.out.println("Error text: " + errorText);
             Assert.assertTrue(errorText.contains("Số lượng") || errorText.contains("số lượng"),
                 "Thong bao: 'So luong va don gia phai >0. Vui long nhap lai'");
@@ -118,35 +118,35 @@ public class EditInvoiceTest extends BaseTest {
 
     @Test(description = "TC_03: Sua so luong thanh so am")
     public void testEditQuantityToNegative() {
-        editInvoicePage.clickEditButton();
-        editInvoicePage.enterQuantity(EditInvoiceData.NEGATIVE_QUANTITY);
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.enterQuantity(EditInvoiceData.NEGATIVE_QUANTITY);
         
-        Assert.assertFalse(editInvoicePage.isNegativeQuantityAllowed(),
+        Assert.assertFalse(purchaseInvoiceEditPage.isNegativeQuantityAllowed(),
             "He thong khong cho phep nhap ky tu '-' vao o so luong");
-        Assert.assertEquals(editInvoicePage.getQuantity(), EditInvoiceData.ORIGINAL_QUANTITY,
+        Assert.assertEquals(purchaseInvoiceEditPage.getQuantity(), EditInvoiceData.ORIGINAL_QUANTITY,
             "Gia tri cu duoc giu nguyen");
     }
 
     @Test(description = "TC_04: Sua don gia hop le")
     public void testEditUnitPriceValid() throws InterruptedException {
-        editInvoicePage.clickEditButton();
-        editInvoicePage.enterUnitPrice(EditInvoiceData.NEW_UNIT_PRICE_55000);
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.enterUnitPrice(EditInvoiceData.NEW_UNIT_PRICE_55000);
         System.out.println("Da sua don gia thanh 55000");
         
         // Kiem tra gia tri da nhap
-        int currentUnitPrice = editInvoicePage.getUnitPrice();
+        int currentUnitPrice = purchaseInvoiceEditPage.getUnitPrice();
         System.out.println("Don gia hien tai: " + currentUnitPrice);
         Assert.assertEquals(currentUnitPrice, EditInvoiceData.NEW_UNIT_PRICE_55000,
             "Don gia da duoc nhap thanh 55000");
         
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickSaveButton();
         System.out.println("Da click nut Luu");
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Expected Result: Hien thi thong bao "Đã Lưu Thông Tin Thay Đổi!"
-        boolean successDisplayed = editInvoicePage.isSuccessMessageDisplayed();
+        boolean successDisplayed = purchaseInvoiceEditPage.isSuccessMessageDisplayed();
         System.out.println("Success message displayed: " + successDisplayed);
         
         Assert.assertTrue(successDisplayed,
@@ -154,7 +154,7 @@ public class EditInvoiceTest extends BaseTest {
         
         // Click OK button de dong popup
         try {
-            org.openqa.selenium.WebElement okButton = editInvoicePage.driver.findElement(
+            org.openqa.selenium.WebElement okButton = purchaseInvoiceEditPage.driver.findElement(
                 org.openqa.selenium.By.xpath("//button[contains(text(),'OK')]"));
             if (okButton.isDisplayed()) {
                 okButton.click();
@@ -170,29 +170,29 @@ public class EditInvoiceTest extends BaseTest {
 
     @Test(description = "TC_05: Sua don gia thanh so am")
     public void testEditUnitPriceToNegative() throws InterruptedException {
-        editInvoicePage.clickEditButton();
+        purchaseInvoiceEditPage.clickEditButton();
         
         // Lấy giá trị cũ trước khi sửa
-        int originalPrice = editInvoicePage.getUnitPrice();
+        int originalPrice = purchaseInvoiceEditPage.getUnitPrice();
         System.out.println("Giá trị cũ: " + originalPrice);
         
         // Thử nhập giá trị âm
-        editInvoicePage.enterUnitPrice(EditInvoiceData.NEGATIVE_UNIT_PRICE);
+        purchaseInvoiceEditPage.enterUnitPrice(EditInvoiceData.NEGATIVE_UNIT_PRICE);
         System.out.println("Đã nhập giá trị âm: " + EditInvoiceData.NEGATIVE_UNIT_PRICE);
         
         // Bấm "Lưu"
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickSaveButton();
         System.out.println("Da click nut Luu");
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Expected Result: Hiển thị thông báo "Đơn giá phải >0. Vui lòng nhập lại"
-        boolean hasError = editInvoicePage.isErrorMessageDisplayed();
+        boolean hasError = purchaseInvoiceEditPage.isErrorMessageDisplayed();
         System.out.println("Has error message: " + hasError);
         
         if (hasError) {
-            String errorText = editInvoicePage.getErrorMessageText();
+            String errorText = purchaseInvoiceEditPage.getErrorMessageText();
             System.out.println("Error text: " + errorText);
             Assert.assertTrue(errorText.contains("Đơn giá") || errorText.contains("đơn giá"),
                 "Thong bao: 'Don gia phai >0. Vui long nhap lai'");
@@ -206,19 +206,19 @@ public class EditInvoiceTest extends BaseTest {
 
     @Test(description = "TC_06: Sua don gia thanh 0")
     public void testEditUnitPriceToZero() throws InterruptedException {
-        editInvoicePage.clickEditButton();
-        editInvoicePage.enterUnitPrice(EditInvoiceData.ZERO_UNIT_PRICE);
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.enterUnitPrice(EditInvoiceData.ZERO_UNIT_PRICE);
+        purchaseInvoiceEditPage.clickSaveButton();
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Check xem co error message hay alert
-        boolean hasError = editInvoicePage.isErrorMessageDisplayed();
+        boolean hasError = purchaseInvoiceEditPage.isErrorMessageDisplayed();
         System.out.println("Has error message: " + hasError);
         
         if (hasError) {
-            String errorText = editInvoicePage.getErrorMessageText();
+            String errorText = purchaseInvoiceEditPage.getErrorMessageText();
             System.out.println("Error text: " + errorText);
             Assert.assertTrue(errorText.contains("Số lượng") || errorText.contains("Đơn giá"),
                 "Thong bao: 'So luong va don gia phai >0. Vui long nhap lai'");
@@ -228,32 +228,32 @@ public class EditInvoiceTest extends BaseTest {
     @Test(description = "TC_07: Huy sua hoa don")
     public void testCancelEditInvoice() throws InterruptedException {
         // Step 4: Click nut "Sua"
-        editInvoicePage.clickEditButton();
+        purchaseInvoiceEditPage.clickEditButton();
         System.out.println("Da click nut Sua");
         
         // Lấy giá trị cũ trước khi sửa
-        int originalQuantity = editInvoicePage.getQuantity();
+        int originalQuantity = purchaseInvoiceEditPage.getQuantity();
         System.out.println("So luong ban dau: " + originalQuantity);
         
         // Step 4: Sua so luong tu 10 thanh 20
-        editInvoicePage.enterQuantity(EditInvoiceData.NEW_QUANTITY_20);
+        purchaseInvoiceEditPage.enterQuantity(EditInvoiceData.NEW_QUANTITY_20);
         System.out.println("Da sua so luong thanh 20");
         
         // Kiem tra gia tri da nhap
-        int currentQuantity = editInvoicePage.getQuantity();
+        int currentQuantity = purchaseInvoiceEditPage.getQuantity();
         System.out.println("So luong hien tai: " + currentQuantity);
         Assert.assertEquals(currentQuantity, EditInvoiceData.NEW_QUANTITY_20,
             "So luong da duoc nhap thanh 20");
         
         // Step 5: Bam "Huy"
-        editInvoicePage.clickCancelButton();
+        purchaseInvoiceEditPage.clickCancelButton();
         System.out.println("Da click nut Huy");
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Expected Result: Khong hien thi thong bao luu
-        boolean successDisplayed = editInvoicePage.isSuccessMessageDisplayed();
+        boolean successDisplayed = purchaseInvoiceEditPage.isSuccessMessageDisplayed();
         System.out.println("Success message displayed: " + successDisplayed);
         Assert.assertFalse(successDisplayed,
             "Khong hien thi thong bao luu");
@@ -264,7 +264,7 @@ public class EditInvoiceTest extends BaseTest {
         // Chi kiem tra xem co quay lai danh sach hay khong
         
         // Expected Result: Quay lai danh sach hoa don
-        boolean onListPage = editInvoicePage.isOnInvoiceListPage();
+        boolean onListPage = purchaseInvoiceEditPage.isOnInvoiceListPage();
         System.out.println("On invoice list page: " + onListPage);
         Assert.assertTrue(onListPage,
             "Quay lai danh sach hoa don");
@@ -285,25 +285,25 @@ public class EditInvoiceTest extends BaseTest {
         System.out.println("=== TC_08: Kiem tra tinh toan thanh tien ===");
         
         // Step 4: Click nút "Sửa"
-        editInvoicePage.clickEditButton();
+        purchaseInvoiceEditPage.clickEditButton();
         System.out.println("Da click nut Sua");
         
         // Step 4: Sửa đơn giá = 100000
-        editInvoicePage.enterUnitPrice(EditInvoiceData.NEW_UNIT_PRICE_100000);
+        purchaseInvoiceEditPage.enterUnitPrice(EditInvoiceData.NEW_UNIT_PRICE_100000);
         System.out.println("Da sua don gia thanh 100000");
         
         // Step 4: Sửa số lượng = 5
-        editInvoicePage.enterQuantity(EditInvoiceData.NEW_QUANTITY_5);
+        purchaseInvoiceEditPage.enterQuantity(EditInvoiceData.NEW_QUANTITY_5);
         System.out.println("Da sua so luong thanh 5");
         
         // Step 4: Sửa chiết khấu = 5.5%
-        editInvoicePage.enterDiscount(EditInvoiceData.DECIMAL_DISCOUNT);
+        purchaseInvoiceEditPage.enterDiscount(EditInvoiceData.DECIMAL_DISCOUNT);
         System.out.println("Da sua chiet khau thanh 5.5%");
         
         // Kiểm tra các giá trị đã nhập
-        int currentQuantity = editInvoicePage.getQuantity();
-        int currentUnitPrice = editInvoicePage.getUnitPrice();
-        double currentDiscount = editInvoicePage.getDiscount();
+        int currentQuantity = purchaseInvoiceEditPage.getQuantity();
+        int currentUnitPrice = purchaseInvoiceEditPage.getUnitPrice();
+        double currentDiscount = purchaseInvoiceEditPage.getDiscount();
         System.out.println("So luong: " + currentQuantity + ", Don gia: " + currentUnitPrice + ", Chiet khau: " + currentDiscount + "%");
         
         Assert.assertEquals(currentQuantity, EditInvoiceData.NEW_QUANTITY_5,
@@ -314,14 +314,14 @@ public class EditInvoiceTest extends BaseTest {
             "Chiet khau da duoc nhap thanh 5.5%");
         
         // Step 5: Bấm "Lưu"
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickSaveButton();
         System.out.println("Da click nut Luu");
         
         // Chờ server xử lý
         Thread.sleep(2000);
         
         // Expected Result: Hiển thị thông báo "Đã Lưu Thông Tin Thay Đổi!"
-        boolean successDisplayed = editInvoicePage.isSuccessMessageDisplayed();
+        boolean successDisplayed = purchaseInvoiceEditPage.isSuccessMessageDisplayed();
         System.out.println("Success message displayed: " + successDisplayed);
         
         Assert.assertTrue(successDisplayed,
@@ -335,7 +335,7 @@ public class EditInvoiceTest extends BaseTest {
         // = (5 × 100000) × (1 - 5.5/100)
         // = 500000 × 0.945
         // = 472.500
-        double actualTotal = editInvoicePage.getTotalAmountWithDiscount();
+        double actualTotal = purchaseInvoiceEditPage.getTotalAmountWithDiscount();
         System.out.println("Thanh tien thuc te: " + actualTotal);
         System.out.println("Thanh tien du kien: " + EditInvoiceData.EXPECTED_TOTAL_WITH_DISCOUNT);
         
@@ -344,7 +344,7 @@ public class EditInvoiceTest extends BaseTest {
         
         // Click OK button để đóng popup
         try {
-            org.openqa.selenium.WebElement okButton = editInvoicePage.driver.findElement(
+            org.openqa.selenium.WebElement okButton = purchaseInvoiceEditPage.driver.findElement(
                 org.openqa.selenium.By.xpath("//button[contains(text(),'OK')]"));
             if (okButton.isDisplayed()) {
                 okButton.click();
@@ -360,31 +360,31 @@ public class EditInvoiceTest extends BaseTest {
 
     @Test(description = "TC_09: Kiem tra chiet khau voi gia tri thap phan")
     public void testDiscountWithDecimalValue() {
-        editInvoicePage.clickEditButton();
-        editInvoicePage.enterDiscount(EditInvoiceData.DECIMAL_DISCOUNT);
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.enterDiscount(EditInvoiceData.DECIMAL_DISCOUNT);
+        purchaseInvoiceEditPage.clickSaveButton();
         
-        Assert.assertTrue(editInvoicePage.isSuccessMessageDisplayed(),
+        Assert.assertTrue(purchaseInvoiceEditPage.isSuccessMessageDisplayed(),
             "Hien thi thong bao 'Luu thanh cong'");
-        Assert.assertEquals(editInvoicePage.getDiscount(), EditInvoiceData.DECIMAL_DISCOUNT,
+        Assert.assertEquals(purchaseInvoiceEditPage.getDiscount(), EditInvoiceData.DECIMAL_DISCOUNT,
             "Gia tri chiet khau duoc cap nhat thanh 5.5");
     }
 
     @Test(description = "TC_10: Nhap chiet khau > 100")
     public void testDiscountGreaterThan100() throws InterruptedException {
-        editInvoicePage.clickEditButton();
-        editInvoicePage.enterDiscount(EditInvoiceData.INVALID_DISCOUNT_150);
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.enterDiscount(EditInvoiceData.INVALID_DISCOUNT_150);
+        purchaseInvoiceEditPage.clickSaveButton();
         
         // Cho server xu ly
         Thread.sleep(1000);
         
         // Check xem co error message hay alert
-        boolean hasError = editInvoicePage.isErrorMessageDisplayed();
+        boolean hasError = purchaseInvoiceEditPage.isErrorMessageDisplayed();
         System.out.println("Has error message: " + hasError);
         
         if (hasError) {
-            String errorText = editInvoicePage.getErrorMessageText();
+            String errorText = purchaseInvoiceEditPage.getErrorMessageText();
             System.out.println("Error text: " + errorText);
             Assert.assertTrue(errorText.contains("Chiết khấu") || errorText.contains("chiết khấu"),
                 "Thong bao: 'Chiet khau phai tu 0 den 100'");
@@ -394,17 +394,17 @@ public class EditInvoiceTest extends BaseTest {
     @Test(description = "TC_11: Sua phuong thuc thanh toan hop le")
     public void testEditPaymentMethodValid() {
         // Open HDN02 invoice
-        editInvoicePage.openImportPage();
-        editInvoicePage.selectInvoice(EditInvoiceData.INVOICE_CODE_HDN02);
-        editInvoicePage.waitForPageToLoad();
+        purchaseInvoiceEditPage.openImportPage();
+        purchaseInvoiceEditPage.selectInvoice(EditInvoiceData.INVOICE_CODE_HDN02);
+        purchaseInvoiceEditPage.waitForPageToLoad();
         
-        editInvoicePage.clickEditButton();
-        editInvoicePage.selectPaymentMethod(EditInvoiceData.PAYMENT_METHOD_CASH);
-        editInvoicePage.clickSaveButton();
+        purchaseInvoiceEditPage.clickEditButton();
+        purchaseInvoiceEditPage.selectPaymentMethod(EditInvoiceData.PAYMENT_METHOD_CASH);
+        purchaseInvoiceEditPage.clickSaveButton();
         
-        Assert.assertTrue(editInvoicePage.isSuccessMessageDisplayed(),
+        Assert.assertTrue(purchaseInvoiceEditPage.isSuccessMessageDisplayed(),
             "Hien thi thong bao luu thanh cong");
-        Assert.assertEquals(editInvoicePage.getPaymentMethod(), EditInvoiceData.PAYMENT_METHOD_CASH,
+        Assert.assertEquals(purchaseInvoiceEditPage.getPaymentMethod(), EditInvoiceData.PAYMENT_METHOD_CASH,
             "Phuong thuc thanh toan duoc cap nhat dung thanh 'Tien mat'");
     }
 }
