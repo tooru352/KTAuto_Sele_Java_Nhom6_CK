@@ -23,6 +23,10 @@ public class InvoiceDetailPage extends GeneralPage {
     // Thông tin khách hàng (cột phải)
     private final By customerCodeValue = By.xpath("//span[text()='Khách Hàng:']/following-sibling::span");
     private final By customerNameValue = By.xpath("//span[@id='bh-edit-kh-ten']");
+    
+    public InvoiceDetailPage(org.openqa.selenium.WebDriver driver, org.openqa.selenium.support.ui.WebDriverWait wait) {
+        super(driver, wait);
+    }
     private final By customerAddressValue = By.xpath("//span[@id='bh-edit-kh-dia-chi']");
     private final By customerPhoneValue = By.xpath("//span[@id='bh-edit-kh-sdt']");
     

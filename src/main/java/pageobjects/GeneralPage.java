@@ -1,19 +1,23 @@
 package pageobjects;
 
-import common.Constant;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
+/**
+ * Base Page Object class
+ * Chứa các methods dùng chung cho tất cả page objects
+ */
 public class GeneralPage {
     
+    protected WebDriver driver;
     protected WebDriverWait wait;
     
-    public GeneralPage() {
-        this.wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.DEFAULT_TIMEOUT));
+    public GeneralPage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
     }
     
     // Method để tạo dynamic locator cho menu tab
@@ -33,8 +37,7 @@ public class GeneralPage {
     
     // Method để wait và click element
     protected void clickElement(By locator) {
-        wait.until(ExpectedConditions.elementToBeClickable(locator));
-        Constant.WEBDRIVER.findElement(locator).click();
+        wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
     
     // Method để wait và nhập text
@@ -56,5 +59,28 @@ public class GeneralPage {
     // Method để lấy text của element
     protected String getElementText(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getText();
+    }
+    
+    // Method để lấy attribute của element
+    protected String getElementAttribute(By locator, String attribute) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator)).getAttribute(attribute);
+    }
+    
+    // Method để kiểm tra element có enabled không
+    protected boolean isElementEnabled(By locator) {
+        try {
+            return driver.findElement(locator).isEnabled();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    // Method để sleep
+    protected void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

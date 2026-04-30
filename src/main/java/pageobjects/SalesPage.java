@@ -29,6 +29,10 @@ public class SalesPage extends GeneralPage {
     private final By searchInput = By.xpath("//input[@id='searchInput']");
     private final By searchButton = By.xpath("//button[@class='btn-tim-kiem']");
     
+    public SalesPage(org.openqa.selenium.WebDriver driver, org.openqa.selenium.support.ui.WebDriverWait wait) {
+        super(driver, wait);
+    }
+    
     // Invoice table
     private final By invoiceTable = By.xpath("//table[@class='hoa-don-table']");
     private final By invoiceTableBody = By.xpath("//table[@class='hoa-don-table']/tbody");

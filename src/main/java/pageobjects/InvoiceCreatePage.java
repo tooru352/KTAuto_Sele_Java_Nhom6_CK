@@ -28,6 +28,10 @@ public class InvoiceCreatePage extends GeneralPage {
     
     // Customer Info (Right Panel)
     private final By customerPhoneInput = By.xpath("//input[@name='sdt_khach_hang']");
+    
+    public InvoiceCreatePage(org.openqa.selenium.WebDriver driver, org.openqa.selenium.support.ui.WebDriverWait wait) {
+        super(driver, wait);
+    }
     private final By customerCodeDisplay = By.xpath("//input[@id='dispMaKH']");
     private final By customerNameDisplay = By.xpath("//input[@id='dispTenKH']");
     private final By customerAddressDisplay = By.xpath("//input[@id='dispDiaChiKH']");
