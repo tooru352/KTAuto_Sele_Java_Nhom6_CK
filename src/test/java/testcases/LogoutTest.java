@@ -23,8 +23,8 @@ public class LogoutTest extends BaseTest {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
     }
 
-    @Test(description = "TC_01: Đăng xuất thành công từ trang chủ")
-    public void testLogoutFromHomePage() {
+    @Test(description = "TC-01: Đăng xuất thành công từ trang chủ")
+    public void TC01() {
         homePage.logout();
         
         Assert.assertTrue(loginPage.isOnLoginPage(),
@@ -46,8 +46,8 @@ public class LogoutTest extends BaseTest {
             "Sau khi back, vẫn ở trang login - Session đã bị xóa hoàn toàn");
     }
 
-    @Test(description = "TC_02: Đăng xuất từ trang Bán hàng")
-    public void testLogoutFromBanHangPage() {
+    @Test(description = "TC-02: Đăng xuất từ trang Bán hàng")
+    public void TC02() {
         homePage.navigateToBanHang();
         String banHangUrl = driver.getCurrentUrl();
         Assert.assertTrue(banHangUrl.contains("/ban-hang/"), "Đã vào trang Bán hàng");
@@ -62,8 +62,8 @@ public class LogoutTest extends BaseTest {
             "Không thể quay lại trang Bán hàng bằng nút Back");
     }
 
-    @Test(description = "TC_03: Đăng xuất từ trang Nhập hàng")
-    public void testLogoutFromNhapHangPage() {
+    @Test(description = "TC-03: Đăng xuất từ trang Nhập hàng")
+    public void TC03() {
         homePage.navigateToNhapHang();
         String nhapHangUrl = driver.getCurrentUrl();
         Assert.assertTrue(nhapHangUrl.contains("/nhap-hang/"), "Đã vào trang Nhập hàng");
@@ -78,8 +78,8 @@ public class LogoutTest extends BaseTest {
             "Không thể quay lại trang Nhập hàng bằng nút Back");
     }
 
-    @Test(description = "TC_04: Đăng xuất từ trang Hàng hóa")
-    public void testLogoutFromHangHoaPage() {
+    @Test(description = "TC-04: Đăng xuất từ trang Hàng hóa")
+    public void TC04() {
         homePage.navigateToHangHoa();
         String hangHoaUrl = driver.getCurrentUrl();
         Assert.assertTrue(hangHoaUrl.contains("/hang-hoa/"), "Đã vào trang Hàng hóa");
@@ -94,8 +94,8 @@ public class LogoutTest extends BaseTest {
             "Không thể quay lại trang Hàng hóa bằng nút Back");
     }
 
-    @Test(description = "TC_05: Kiểm tra session sau khi đăng xuất")
-    public void testSessionAfterLogout() {
+    @Test(description = "TC-05: Kiểm tra session sau khi đăng xuất")
+    public void TC05() {
         homePage.logout();
         Assert.assertTrue(loginPage.isOnLoginPage(), "Đã đăng xuất thành công");
         
@@ -105,8 +105,8 @@ public class LogoutTest extends BaseTest {
             "Tự động redirect về trang login. Không thể truy cập trang chủ");
     }
 
-    @Test(description = "TC_06: Kiểm tra truy cập trang Bán hàng sau khi đăng xuất")
-    public void testAccessBanHangAfterLogout() {
+    @Test(description = "TC-06: Kiểm tra truy cập trang Bán hàng sau khi đăng xuất")
+    public void TC06() {
         homePage.logout();
         Assert.assertTrue(loginPage.isOnLoginPage(), "Đã đăng xuất thành công");
         
@@ -118,8 +118,8 @@ public class LogoutTest extends BaseTest {
             "URL có thể chứa ?next=/ban-hang/. Không thể truy cập trang Bán hàng");
     }
 
-    @Test(description = "TC_07: Kiểm tra truy cập trang Nhập hàng sau khi đăng xuất")
-    public void testAccessNhapHangAfterLogout() {
+    @Test(description = "TC-07: Kiểm tra truy cập trang Nhập hàng sau khi đăng xuất")
+    public void TC07() {
         homePage.logout();
         Assert.assertTrue(loginPage.isOnLoginPage(), "Đã đăng xuất thành công");
         
@@ -131,8 +131,8 @@ public class LogoutTest extends BaseTest {
             "URL có thể chứa ?next=/nhap-hang/. Không thể truy cập trang Nhập hàng");
     }
 
-    @Test(description = "TC_08: Kiểm tra đăng xuất từ nhiều tab")
-    public void testLogoutFromMultipleTabs() {
+    @Test(description = "TC-08: Kiểm tra đăng xuất từ nhiều tab")
+    public void TC08() {
         String originalWindow = driver.getWindowHandle();
         
         // Mở tab mới
@@ -154,8 +154,8 @@ public class LogoutTest extends BaseTest {
             "Tab 2 tự động redirect về login. Session đã bị xóa ở tất cả tab");
     }
 
-    @Test(description = "TC_09: Đăng xuất khi đang ở giữa quá trình tạo hóa đơn bán")
-    public void testLogoutDuringInvoiceCreation() {
+    @Test(description = "TC-09: Đăng xuất khi đang ở giữa quá trình tạo hóa đơn bán")
+    public void TC09() {
         homePage.navigateToBanHang();
         Assert.assertTrue(driver.getCurrentUrl().contains("/ban-hang/"), 
             "Đã vào trang Bán hàng");
@@ -169,8 +169,8 @@ public class LogoutTest extends BaseTest {
             "Chuyển về trang login. Session bị xóa. Dữ liệu chưa lưu bị mất");
     }
 
-    @Test(description = "TC_10: Click nhiều lần vào nút Đăng xuất")
-    public void testMultipleLogoutClicks() {
+    @Test(description = "TC-10: Click nhiều lần vào nút Đăng xuất")
+    public void TC10() {
         homePage.clickLogoutMultipleTimes(5);
         
         Assert.assertTrue(loginPage.isOnLoginPage(),

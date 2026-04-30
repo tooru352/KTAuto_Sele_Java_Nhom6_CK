@@ -24,7 +24,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-01: Sửa số lượng hàng hóa hợp lệ")
-    public void TC01_EditValidQuantity() {
+    public void TC01() {
         Utilities.logStep("=== TC-01: SỬA SỐ LƯỢNG HỢP LỆ ===");
         
         // Test data
@@ -47,7 +47,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-02: Sửa số lượng vượt quá tồn kho")
-    public void TC02_EditQuantityExceedsInventory() {
+    public void TC02() {
         Utilities.logStep("=== TC-02: SỬA SỐ LƯỢNG VƯỢT TỒN KHO ===");
         
         // Test data
@@ -82,7 +82,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-03: Sửa số lượng = 0")
-    public void TC03_EditQuantityZero() {
+    public void TC03() {
         Utilities.logStep("=== TC-03: SỬA SỐ LƯỢNG = 0 ===");
         
         // Test data
@@ -111,7 +111,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-04: Sửa số lượng âm")
-    public void TC04_EditNegativeQuantity() {
+    public void TC04() {
         Utilities.logStep("=== TC-04: SỬA SỐ LƯỢNG ÂM ===");
         
         // Test data
@@ -136,7 +136,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-07: Kiểm tra tính toán tự động")
-    public void TC07_AutoCalculation() {
+    public void TC07() {
         Utilities.logStep("=== TC-07: KIỂM TRA TÍNH TOÁN TỰ ĐỘNG ===");
         
         // Test data
@@ -158,7 +158,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-09: Kiểm tra không sửa được đơn giá")
-    public void TC09_UnitPriceReadOnly() {
+    public void TC09() {
         Utilities.logStep("=== TC-09: KIỂM TRA ĐƠN GIÁ READ-ONLY ===");
         
         // Steps
@@ -174,7 +174,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-10: Kiểm tra không sửa được ngày bán")
-    public void TC10_SaleDateReadOnly() {
+    public void TC10() {
         Utilities.logStep("=== TC-10: KIỂM TRA NGÀY BÁN READ-ONLY ===");
         
         // Steps
@@ -190,7 +190,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-12: Kiểm tra không sửa được mã hóa đơn")
-    public void TC12_InvoiceCodeReadOnly() {
+    public void TC12() {
         Utilities.logStep("=== TC-12: KIỂM TRA MÃ HÓA ĐƠN READ-ONLY ===");
         
         // Steps
@@ -206,7 +206,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-13: Sửa chiết khấu thành công")
-    public void TC13_EditDiscountSuccess() {
+    public void TC13() {
         Utilities.logStep("=== TC-13: SỬA CHIẾT KHẤU THÀNH CÔNG ===");
         
         // Test data
@@ -229,7 +229,7 @@ public class InvoiceEditTest extends BaseTest {
     }
 
     @Test(description = "TC-17: Kiểm tra thông tin khách hàng")
-    public void TC17_CustomerInfoReadOnly() {
+    public void TC17() {
         Utilities.logStep("=== TC-17: KIỂM TRA THÔNG TIN KHÁCH HÀNG ===");
         
         // Steps
