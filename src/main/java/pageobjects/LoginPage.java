@@ -47,7 +47,19 @@ public class LoginPage {
 
     public void clickLoginButtonMultipleTimes(int times) {
         for (int i = 0; i < times; i++) {
-            clickLoginButton();
+            try {
+                WebElement button = driver.findElement(loginButton);
+                if (button.isDisplayed() && button.isEnabled()) {
+                    button.click();
+                    // Chờ một chút giữa các lần click
+                    Thread.sleep(100);
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                // Nếu không tìm thấy button hoặc trang đã chuyển, dừng lại
+                break;
+            }
         }
     }
 
@@ -83,9 +95,37 @@ public class LoginPage {
 
     public boolean isValidationMessageDisplayed() {
         try {
+            // Kiểm tra username field trước
             WebElement usernameInput = driver.findElement(usernameField);
-            String validationMsg = usernameInput.getAttribute("validationMessage");
-            return validationMsg != null && !validationMsg.isEmpty();
+            String usernameValidation = usernameInput.getAttribute("validationMessage");
+            if (usernameValidation != null && !usernameValidation.isEmpty()) {
+                return true;
+            }
+            
+            // Nếu username đã có giá trị, kiểm tra password field
+            WebElement passwordInput = driver.findElement(passwordField);
+            String passwordValidation = passwordInput.getAttribute("validationMessage");
+            return passwordValidation != null && !passwordValidation.isEmpty();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean isUsernameRequired() {
+        try {
+            WebElement usernameInput = driver.findElement(usernameField);
+            return "true".equals(usernameInput.getAttribute("required")) || 
+                   usernameInput.getAttribute("required") != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    public boolean isPasswordRequired() {
+        try {
+            WebElement passwordInput = driver.findElement(passwordField);
+            return "true".equals(passwordInput.getAttribute("required")) || 
+                   passwordInput.getAttribute("required") != null;
         } catch (Exception e) {
             return false;
         }
