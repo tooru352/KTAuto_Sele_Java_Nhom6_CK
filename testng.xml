@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Test Suite" parallel="false">
+<suite name="Complete Test Suite" parallel="false">
+    
+    <!-- Login & Logout Tests -->
     <test name="Login Tests">
         <classes>
             <class name="testcases.LoginTest"/>
         </classes>
     </test>
+    
     <test name="Logout Tests">
         <classes>
             <class name="testcases.LogoutTest"/>
         </classes>
     </test>
+    
+    <!-- Invoice Edit Tests -->
+    <test name="Invoice Edit Tests">
+        <classes>
+            <class name="testcases.InvoiceEditTest"/>
+        </classes>
+    </test>
+    
+    <!-- Invoice Delete Tests -->
+    <test name="Invoice Delete Tests">
+        <classes>
+            <class name="testcases.InvoiceDeleteTest"/>
+        </classes>
+    </test>
+    
 </suite>
