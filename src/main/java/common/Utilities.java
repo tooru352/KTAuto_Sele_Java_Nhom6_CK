@@ -1,5 +1,9 @@
 package common;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import java.util.UUID;
 
 /**
@@ -32,6 +36,13 @@ public class Utilities {
         }
     }
     
+    /**
+     * Click element bằng JavaScript (dùng khi element bị che hoặc không clickable thông thường)
+     */
+    public static void clickByJavaScript(WebDriver driver, WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
     /**
      * Generate UUID ngẫu nhiên
      */

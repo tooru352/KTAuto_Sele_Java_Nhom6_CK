@@ -42,5 +42,19 @@
             <class name="testcases.InvoiceSearchTest"/>
         </classes>
     </test>
-    
+
+    <!-- Purchase Create Tests (Hóa đơn nhập) -->
+    <test name="Purchase Create Tests">
+        <classes>
+            <class name="testcases.PurchaseCreateTest"/>
+        </classes>
+    </test>
+
+    <!-- Purchase Delete Tests (Xóa hóa đơn nhập) -->
+    <test name="Purchase Delete Tests">
+        <classes>
+            <class name="testcases.PurchaseDeleteTest"/>
+        </classes>
+    </test>
+
 </suite>
