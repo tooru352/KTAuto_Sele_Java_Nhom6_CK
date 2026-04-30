@@ -15,16 +15,16 @@ public class LoginTest extends BaseTest {
         loginPage.open();
     }
 
-    @Test(description = "TC_01: Login thành công với thông tin hợp lệ")
-    public void testLoginSuccessWithValidCredentials() {
+    @Test(description = "TC-01: Login thành công với thông tin hợp lệ")
+    public void TC01() {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isOnHomePage(), 
             "Chuyển đến trang chủ sau khi đăng nhập thành công");
     }
 
-    @Test(description = "TC_02: Đăng nhập không thành công vì sai username")
-    public void testLoginFailWithInvalidUsername() {
+    @Test(description = "TC-02: Đăng nhập không thành công vì sai username")
+    public void TC02() {
         loginPage.login(LoginData.INVALID_USERNAME, LoginData.VALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -33,8 +33,8 @@ public class LoginTest extends BaseTest {
             "Vẫn ở trang login");
     }
 
-    @Test(description = "TC_03: Đăng nhập không thành công vì sai password")
-    public void testLoginFailWithInvalidPassword() {
+    @Test(description = "TC-03: Đăng nhập không thành công vì sai password")
+    public void TC03() {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.INVALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -43,8 +43,8 @@ public class LoginTest extends BaseTest {
             "Vẫn ở trang login");
     }
 
-    @Test(description = "TC_04: Không nhập username")
-    public void testLoginWithEmptyUsername() {
+    @Test(description = "TC-04: Không nhập username")
+    public void TC04() {
         loginPage.enterPassword(LoginData.VALID_PASSWORD);
         loginPage.clickLoginButton();
         
@@ -52,8 +52,8 @@ public class LoginTest extends BaseTest {
             "Không submit form - vẫn ở trang login");
     }
 
-    @Test(description = "TC_05: Không nhập password")
-    public void testLoginWithEmptyPassword() {
+    @Test(description = "TC-05: Không nhập password")
+    public void TC05() {
         loginPage.enterUsername(LoginData.VALID_USERNAME);
         loginPage.clickLoginButton();
         
@@ -61,16 +61,16 @@ public class LoginTest extends BaseTest {
             "Không submit form - vẫn ở trang login");
     }
 
-    @Test(description = "TC_06: Không nhập cả username và password")
-    public void testLoginWithEmptyCredentials() {
+    @Test(description = "TC-06: Không nhập cả username và password")
+    public void TC06() {
         loginPage.clickLoginButton();
         
         Assert.assertTrue(loginPage.isOnLoginPage(),
             "Không submit form - vẫn ở trang login");
     }
 
-    @Test(description = "TC_07: Nhập username có khoảng trắng đầu/cuối")
-    public void testLoginWithUsernameWithSpaces() {
+    @Test(description = "TC-07: Nhập username có khoảng trắng đầu/cuối")
+    public void TC07() {
         loginPage.login(LoginData.USERNAME_WITH_SPACES, LoginData.VALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -79,8 +79,8 @@ public class LoginTest extends BaseTest {
             "Vẫn ở trang login");
     }
 
-    @Test(description = "TC_08: Nhập username viết hoa (case-sensitive)")
-    public void testLoginWithUppercaseUsername() {
+    @Test(description = "TC-08: Nhập username viết hoa (case-sensitive)")
+    public void TC08() {
         loginPage.login(LoginData.USERNAME_UPPERCASE, LoginData.VALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -89,8 +89,8 @@ public class LoginTest extends BaseTest {
             "Vẫn ở trang login");
     }
 
-    @Test(description = "TC_09: SQL Injection Attack")
-    public void testLoginWithSQLInjection() {
+    @Test(description = "TC-09: SQL Injection Attack")
+    public void TC09() {
         loginPage.login(LoginData.SQL_INJECTION, "anything");
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -99,8 +99,8 @@ public class LoginTest extends BaseTest {
             "Hệ thống bảo mật tốt, không bị SQL Injection");
     }
 
-    @Test(description = "TC_10: XSS Attack")
-    public void testLoginWithXSSAttack() {
+    @Test(description = "TC-10: XSS Attack")
+    public void TC10() {
         loginPage.login(LoginData.XSS_ATTACK, LoginData.VALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -109,16 +109,16 @@ public class LoginTest extends BaseTest {
             "Script được escape/sanitize");
     }
 
-    @Test(description = "TC_11: Nhập password có ký tự đặc biệt")
-    public void testLoginWithSpecialCharactersPassword() {
+    @Test(description = "TC-11: Nhập password có ký tự đặc biệt")
+    public void TC11() {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.PASSWORD_SPECIAL_CHARS);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed() || loginPage.isOnLoginPage(),
             "Hệ thống xử lý bình thường - password sai nên báo lỗi");
     }
 
-    @Test(description = "TC_12: Nhập username quá dài (>50 ký tự)")
-    public void testLoginWithLongUsername() {
+    @Test(description = "TC-12: Nhập username quá dài (>50 ký tự)")
+    public void TC12() {
         loginPage.login(LoginData.LONG_STRING_50, LoginData.VALID_PASSWORD);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -127,8 +127,8 @@ public class LoginTest extends BaseTest {
             "Vẫn ở trang login");
     }
 
-    @Test(description = "TC_13: Nhập password quá dài (>50 ký tự)")
-    public void testLoginWithLongPassword() {
+    @Test(description = "TC-13: Nhập password quá dài (>50 ký tự)")
+    public void TC13() {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.LONG_STRING_50);
         
         Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
@@ -137,8 +137,8 @@ public class LoginTest extends BaseTest {
             "Vẫn ở trang login");
     }
 
-    @Test(description = "TC_14: Copy-Paste password")
-    public void testLoginWithCopyPastePassword() {
+    @Test(description = "TC-14: Copy-Paste password")
+    public void TC14() {
         loginPage.enterUsername(LoginData.VALID_USERNAME);
         loginPage.enterPassword(LoginData.VALID_PASSWORD);
         loginPage.clickLoginButton();
@@ -147,8 +147,8 @@ public class LoginTest extends BaseTest {
             "Hệ thống đăng nhập thành công - Password được paste thành công - Chuyển đến trang chủ");
     }
 
-    @Test(description = "TC_15: Click nhiều lần vào nút Login")
-    public void testMultipleLoginButtonClicks() {
+    @Test(description = "TC-16: Click nhiều lần vào nút Login")
+    public void TC16() {
         loginPage.enterUsername(LoginData.VALID_USERNAME);
         loginPage.enterPassword(LoginData.VALID_PASSWORD);
         loginPage.clickLoginButtonMultipleTimes(5);
@@ -157,14 +157,13 @@ public class LoginTest extends BaseTest {
             "Hệ thống chỉ xử lý 1 lần đăng nhập - Không gửi multiple requests - Chuyển đến trang chủ");
     }
 
-    @Test(description = "TC_16: Kiểm tra browser back button sau khi đăng nhập")
-    public void testBrowserBackButtonAfterLogin() {
+    @Test(description = "TC-17: Kiểm tra browser back button sau khi đăng nhập")
+    public void TC17() {
         loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
         Assert.assertTrue(loginPage.isOnHomePage(), "Đăng nhập thành công, chuyển đến trang chủ");
         
         driver.navigate().back();
         
-        // Chờ một chút để xem có redirect không
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -172,12 +171,7 @@ public class LoginTest extends BaseTest {
         }
         
         String currentUrl = loginPage.getCurrentUrl();
-        
-        // Chấp nhận 2 trường hợp:
-        // 1. Vẫn ở trang chủ (không cho back)
-        // 2. Quay về login nhưng tự động redirect về trang chủ
-        boolean isValid = loginPage.isOnHomePage() || 
-                         (!currentUrl.contains("/login/"));
+        boolean isValid = loginPage.isOnHomePage() || (!currentUrl.contains("/login/"));
         
         Assert.assertTrue(isValid,
             "Sau khi back: Không quay lại trang login HOẶC tự động redirect về trang chủ. URL hiện tại: " + currentUrl);

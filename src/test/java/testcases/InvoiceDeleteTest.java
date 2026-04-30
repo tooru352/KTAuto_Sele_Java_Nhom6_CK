@@ -25,7 +25,7 @@ public class InvoiceDeleteTest extends BaseTest {
     }
 
     @Test(description = "TC-01: Xóa hóa đơn bán thành công")
-    public void testDeleteInvoiceSuccess() {
+    public void TC01_DeleteInvoiceSuccess() {
         Utilities.logStep("=== TC-01: XÓA HÓA ĐƠN THÀNH CÔNG ===");
         Utilities.log("⚠️ Test này sẽ chọn hóa đơn CUỐI CÙNG để xóa");
         Utilities.log("⚠️ Không xóa hóa đơn đầu tiên để bảo vệ dữ liệu test");
@@ -104,7 +104,7 @@ public class InvoiceDeleteTest extends BaseTest {
     }
 
     @Test(description = "TC-02: Hủy xóa hóa đơn")
-    public void testCancelDeleteInvoice() {
+    public void TC02_CancelDeleteInvoice() {
         Utilities.logStep("=== TC-02: HỦY XÓA HÓA ĐƠN ===");
         
         // Test data
