@@ -2,7 +2,7 @@ package dataobjects;
 
 public class LoginData {
     public static final String VALID_USERNAME = "admin";
-    public static final String VALID_PASSWORD = "admin";
+    public static final String VALID_PASSWORD = "admin123";
     public static final String INVALID_USERNAME = "wronguser";
     public static final String INVALID_PASSWORD = "wrongpass";
     public static final String USERNAME_WITH_SPACES = " admin ";

@@ -177,4 +177,156 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(loginPage.isOnHomePage(),
             "Không quay lại trang login HOẶC tự động redirect về trang chủ (vì đã đăng nhập)");
     }
+
+    @Test(description = "TC_18: Kiểm tra Remember Me checkbox")
+    public void testRememberMeCheckbox() {
+        loginPage.checkRememberMeCheckbox();
+        loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
+        
+        Assert.assertTrue(loginPage.isOnHomePage(),
+            "Đăng nhập thành công");
+        
+        driver.navigate().back();
+        
+        Assert.assertTrue(loginPage.isRememberMeChecked(),
+            "Remember Me checkbox vẫn được check");
+    }
+
+    @Test(description = "TC_19: Kiểm tra Forgot Password link")
+    public void testForgotPasswordLink() {
+        Assert.assertTrue(loginPage.isForgotPasswordLinkDisplayed(),
+            "Hiển thị link 'Quên mật khẩu'");
+        
+        loginPage.clickForgotPasswordLink();
+        
+        Assert.assertTrue(loginPage.isOnForgotPasswordPage(),
+            "Chuyển đến trang quên mật khẩu");
+    }
+
+    @Test(description = "TC_20: Kiểm tra Sign Up link")
+    public void testSignUpLink() {
+        Assert.assertTrue(loginPage.isSignUpLinkDisplayed(),
+            "Hiển thị link 'Đăng ký'");
+        
+        loginPage.clickSignUpLink();
+        
+        Assert.assertTrue(loginPage.isOnSignUpPage(),
+            "Chuyển đến trang đăng ký");
+    }
+
+    @Test(description = "TC_21: Kiểm tra password visibility toggle")
+    public void testPasswordVisibilityToggle() {
+        loginPage.enterPassword(LoginData.VALID_PASSWORD);
+        
+        Assert.assertTrue(loginPage.isPasswordFieldMasked(),
+            "Password field hiển thị dạng masked (****)");
+        
+        loginPage.clickPasswordVisibilityToggle();
+        
+        Assert.assertTrue(loginPage.isPasswordFieldVisible(),
+            "Password field hiển thị dạng plain text");
+    }
+
+    @Test(description = "TC_22: Kiểm tra input field focus")
+    public void testInputFieldFocus() {
+        loginPage.clickUsernameField();
+        
+        Assert.assertTrue(loginPage.isUsernameFieldFocused(),
+            "Username field được focus (có border highlight)");
+        
+        loginPage.clickPasswordField();
+        
+        Assert.assertTrue(loginPage.isPasswordFieldFocused(),
+            "Password field được focus (có border highlight)");
+    }
+
+    @Test(description = "TC_23: Kiểm tra keyboard navigation (Tab key)")
+    public void testKeyboardNavigation() {
+        loginPage.clickUsernameField();
+        loginPage.pressTabKey();
+        
+        Assert.assertTrue(loginPage.isPasswordFieldFocused(),
+            "Focus chuyển sang password field");
+        
+        loginPage.pressTabKey();
+        
+        Assert.assertTrue(loginPage.isLoginButtonFocused(),
+            "Focus chuyển sang login button");
+    }
+
+    @Test(description = "TC_24: Kiểm tra Enter key để submit form")
+    public void testEnterKeySubmitForm() {
+        loginPage.enterUsername(LoginData.VALID_USERNAME);
+        loginPage.enterPassword(LoginData.VALID_PASSWORD);
+        loginPage.pressEnterKey();
+        
+        Assert.assertTrue(loginPage.isOnHomePage(),
+            "Form được submit khi nhấn Enter - Đăng nhập thành công");
+    }
+
+    @Test(description = "TC_25: Kiểm tra placeholder text")
+    public void testPlaceholderText() {
+        Assert.assertEquals(loginPage.getUsernamePlaceholder(), "Tên đăng nhập",
+            "Username field có placeholder 'Tên đăng nhập'");
+        
+        Assert.assertEquals(loginPage.getPasswordPlaceholder(), "Mật khẩu",
+            "Password field có placeholder 'Mật khẩu'");
+    }
+
+    @Test(description = "TC_26: Kiểm tra button text")
+    public void testLoginButtonText() {
+        Assert.assertEquals(loginPage.getLoginButtonText(), "Đăng nhập",
+            "Login button hiển thị text 'Đăng nhập'");
+    }
+
+    @Test(description = "TC_27: Kiểm tra form layout responsive")
+    public void testFormLayoutResponsive() {
+        // Test trên desktop
+        Assert.assertTrue(loginPage.isFormCentered(),
+            "Form được căn giữa trên desktop");
+        
+        // Resize window
+        driver.manage().window().setSize(new org.openqa.selenium.Dimension(375, 667));
+        
+        Assert.assertTrue(loginPage.isFormDisplayedCorrectly(),
+            "Form vẫn hiển thị đúng trên mobile (375x667)");
+    }
+
+    @Test(description = "TC_28: Kiểm tra error message styling")
+    public void testErrorMessageStyling() {
+        loginPage.login(LoginData.INVALID_USERNAME, LoginData.VALID_PASSWORD);
+        
+        Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
+            "Error message được hiển thị");
+        
+        Assert.assertTrue(loginPage.isErrorMessageRed(),
+            "Error message có màu đỏ");
+        
+        Assert.assertTrue(loginPage.isErrorMessageVisible(),
+            "Error message có font size đủ lớn để đọc");
+    }
+
+    @Test(description = "TC_29: Kiểm tra success message styling")
+    public void testSuccessMessageStyling() {
+        loginPage.login(LoginData.VALID_USERNAME, LoginData.VALID_PASSWORD);
+        
+        Assert.assertTrue(loginPage.isSuccessMessageDisplayed(),
+            "Success message được hiển thị");
+        
+        Assert.assertTrue(loginPage.isSuccessMessageGreen(),
+            "Success message có màu xanh");
+    }
+
+    @Test(description = "TC_30: Kiểm tra auto-dismiss error message")
+    public void testAutoDismissErrorMessage() throws InterruptedException {
+        loginPage.login(LoginData.INVALID_USERNAME, LoginData.VALID_PASSWORD);
+        
+        Assert.assertTrue(loginPage.isErrorMessageDisplayed(),
+            "Error message được hiển thị");
+        
+        Thread.sleep(5000); // Wait 5 seconds
+        
+        Assert.assertFalse(loginPage.isErrorMessageDisplayed(),
+            "Error message tự động biến mất sau 5 giây");
+    }
 }

@@ -19,6 +19,11 @@ public class LoginPage {
     private By errorMessage = By.xpath("//*[contains(text(),'Mật khẩu hoặc tài khoản sai')]");
     private By userDisplayName = By.xpath("//*[contains(text(),'ADMIN')]");
     private By validationMessage = By.xpath("//*[contains(text(),'Please fill out this field')]");
+    private By rememberMeCheckbox = By.xpath("//input[@type='checkbox']");
+    private By forgotPasswordLink = By.xpath("//a[contains(text(),'Quên mật khẩu')]");
+    private By signUpLink = By.xpath("//a[contains(text(),'Đăng ký')]");
+    private By passwordVisibilityToggle = By.xpath("//button[@class='password-toggle']");
+    private By form = By.xpath("//form[@class='login-form']");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -105,5 +110,276 @@ public class LoginPage {
 
     public boolean isOnHomePage() {
         return !getCurrentUrl().contains("/login/");
+    }
+
+    public void checkRememberMeCheckbox() {
+        WebElement checkbox = wait.until(ExpectedConditions.visibilityOfElementLocated(rememberMeCheckbox));
+        if (!checkbox.isSelected()) {
+            checkbox.click();
+        }
+    }
+
+    public boolean isRememberMeChecked() {
+        try {
+            return driver.findElement(rememberMeCheckbox).isSelected();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isForgotPasswordLinkDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(forgotPasswordLink)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickForgotPasswordLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(forgotPasswordLink)).click();
+    }
+
+    public boolean isOnForgotPasswordPage() {
+        return getCurrentUrl().contains("/forgot-password/");
+    }
+
+    public boolean isSignUpLinkDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(signUpLink)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickSignUpLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(signUpLink)).click();
+    }
+
+    public boolean isOnSignUpPage() {
+        return getCurrentUrl().contains("/signup/");
+    }
+
+    public void clickPasswordVisibilityToggle() {
+        wait.until(ExpectedConditions.elementToBeClickable(passwordVisibilityToggle)).click();
+    }
+
+    public boolean isPasswordFieldMasked() {
+        try {
+            WebElement passwordInput = driver.findElement(passwordField);
+            return passwordInput.getAttribute("type").equals("password");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPasswordFieldVisible() {
+        try {
+            WebElement passwordInput = driver.findElement(passwordField);
+            return passwordInput.getAttribute("type").equals("text");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void clickUsernameField() {
+        wait.until(ExpectedConditions.elementToBeClickable(usernameField)).click();
+    }
+
+    public void clickPasswordField() {
+        wait.until(ExpectedConditions.elementToBeClickable(passwordField)).click();
+    }
+
+    public boolean isUsernameFieldFocused() {
+        try {
+            WebElement element = driver.findElement(usernameField);
+            return driver.switchTo().activeElement().equals(element);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isPasswordFieldFocused() {
+        try {
+            WebElement element = driver.findElement(passwordField);
+            return driver.switchTo().activeElement().equals(element);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void pressTabKey() {
+        driver.switchTo().activeElement().sendKeys(org.openqa.selenium.Keys.TAB);
+    }
+
+    public void pressEnterKey() {
+        driver.switchTo().activeElement().sendKeys(org.openqa.selenium.Keys.ENTER);
+    }
+
+    public boolean isLoginButtonFocused() {
+        try {
+            WebElement element = driver.findElement(loginButton);
+            return driver.switchTo().activeElement().equals(element);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public String getUsernamePlaceholder() {
+        try {
+            return driver.findElement(usernameField).getAttribute("placeholder");
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public String getPasswordPlaceholder() {
+        try {
+            return driver.findElement(passwordField).getAttribute("placeholder");
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public String getLoginButtonText() {
+        try {
+            return driver.findElement(loginButton).getText();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public boolean isFormCentered() {
+        try {
+            WebElement formElement = driver.findElement(form);
+            int formX = formElement.getLocation().getX();
+            int windowWidth = driver.manage().window().getSize().getWidth();
+            int formWidth = formElement.getSize().getWidth();
+            int expectedX = (windowWidth - formWidth) / 2;
+            return Math.abs(formX - expectedX) < 50; // Allow 50px tolerance
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isFormDisplayedCorrectly() {
+        try {
+            WebElement formElement = driver.findElement(form);
+            return formElement.isDisplayed() && formElement.getSize().getHeight() > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isErrorMessageRed() {
+        try {
+            WebElement errorMsg = driver.findElement(errorMessage);
+            String color = errorMsg.getCssValue("color");
+            // Check if color contains red (rgb(255, 0, 0) or similar)
+            return color.contains("255") && color.contains("0") && color.contains("0");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isErrorMessageVisible() {
+        try {
+            WebElement errorMsg = driver.findElement(errorMessage);
+            int fontSize = Integer.parseInt(errorMsg.getCssValue("font-size").replaceAll("[^0-9]", ""));
+            return fontSize >= 12; // Minimum readable font size
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isSuccessMessageGreen() {
+        try {
+            WebElement successMsg = driver.findElement(successMessage);
+            String color = successMsg.getCssValue("color");
+            // Check if color contains green
+            return color.contains("0") && color.contains("128") || color.contains("0") && color.contains("255");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isNCCFeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'NCC')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isHDN01FeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'HDN01')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isInputFeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'Nhập')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isHistoryDataDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'lịch sử')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isEditRealTimeFeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'Edit')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isInputDateFeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//input[@type='date']"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isInputStatusFeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'trạng thái')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isWriteErrorDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'lỗi ghi')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isInputFromBeginningFeatureDisplayed() {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[contains(text(),'đầu hàng')]"))).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
