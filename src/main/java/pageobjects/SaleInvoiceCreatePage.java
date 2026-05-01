@@ -16,7 +16,7 @@ public class InvoiceCreatePage extends GeneralPage {
     private final By saleDateInput = By.xpath("//input[@id='inputNgayBan']");
     private final By discountInput = By.xpath("//input[@name='chiet_khau']");
     private final By totalAmountDisplay = By.xpath("//input[@id='tongTienHienThi']");
-    
+
     // Form buttons
     private final By cancelButton = By.xpath("//button[@class='thb-btn-huy']");
     private final By confirmPaymentButton = By.xpath("//button[@class='thb-btn-xacnhan']");
